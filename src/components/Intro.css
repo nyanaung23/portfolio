@@ -1,0 +1,1184 @@
+/* Intro Component Styles */
+.intro-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(135deg, #042a1c 0%, #042a1c 100%);
+  overflow: hidden;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+[data-theme="light"] .intro-section {
+  background: linear-gradient(135deg, #EEEEEE 0%, #EEEEEE 100%);
+}
+
+.particles-canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  pointer-events: none;
+}
+
+.intro-content {
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  transform: translateY(-20px);
+}
+
+.intro-name {
+  font-family: 'Chiron Sung HK', serif;
+  font-size: 170px;
+  font-weight: 900;
+  color: #e3e5e6;
+  margin-bottom: 20px;
+}
+
+[data-theme="light"] .intro-name {
+  color: #000000;
+}
+
+.intro-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #e3e5e6;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+  min-height: 50px;
+}
+
+[data-theme="light"] .intro-subtitle {
+  color: #000000;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(227, 229, 230, 0.1) !important;
+  color: #e3e5e6 !important;
+  text-decoration: none;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(227, 229, 230, 0.3) !important;
+}
+
+[data-theme="light"] .social-icon {
+  background: rgba(0, 0, 0, 0.1) !important;
+  color: #000000 !important;
+  border: 2px solid rgba(0, 0, 0, 0.3) !important;
+}
+
+.social-icon:hover {
+  background: rgba(227, 229, 230, 0.2) !important;
+  border-color: #e3e5e6 !important;
+  box-shadow: 0 4px 15px rgba(227, 229, 230, 0.3) !important;
+}
+
+[data-theme="light"] .social-icon:hover {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-color: #000000 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.resume-download-container {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resume-download-label {
+  background-color: transparent;
+  border: 2px solid #e3e5e6;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  width: 140px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  padding: 5px;
+  position: relative;
+}
+
+[data-theme="light"] .resume-download-label {
+  border: 2px solid #000000;
+}
+
+.resume-download-label:hover {
+  background: rgba(227, 229, 230, 0.2);
+  border-color: #e3e5e6;
+  box-shadow: 0 4px 15px rgba(227, 229, 230, 0.3);
+}
+
+[data-theme="light"] .resume-download-label:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: #000000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.resume-download-label::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #e3e5e6;
+  width: 8px;
+  height: 8px;
+  transition: all 0.4s ease;
+  border-radius: 100%;
+  margin: auto;
+  opacity: 0;
+  visibility: hidden;
+}
+
+[data-theme="light"] .resume-download-label::before {
+  background-color: #000000;
+}
+
+.resume-download-input {
+  display: none;
+}
+
+.resume-download-title {
+  font-size: 18px;
+  color: #e3e5e6;
+  transition: all 0.4s ease;
+  position: absolute;
+  right: 15px;
+  bottom: 14px;
+  transform: translateX(0);
+  text-align: left;
+  white-space: nowrap;
+}
+
+[data-theme="light"] .resume-download-title {
+  color: #000000;
+}
+
+.resume-download-title:last-child {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.resume-download-circle {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #e3e5e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease;
+  position: relative;
+  box-shadow: 0 0 0 0 rgba(211, 211, 211, 0.7);
+  overflow: hidden;
+}
+
+[data-theme="light"] .resume-download-circle {
+  background-color: #000000;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+}
+
+.resume-download-icon {
+  color: #fff;
+  width: 25px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s ease;
+}
+
+.resume-download-square {
+  aspect-ratio: 1;
+  width: 12px;
+  border-radius: 2px;
+  background-color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s ease;
+}
+
+.resume-download-circle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #D3D3D3;
+  width: 100%;
+  height: 0;
+  transition: all 0.4s ease;
+}
+
+[data-theme="light"] .resume-download-circle::before {
+  background-color: #333333;
+}
+
+.resume-download-label:has(.resume-download-input:checked) {
+  width: 55px;
+  animation: resumeInstalled 0.4s ease 3.5s forwards;
+}
+
+.resume-download-label:has(.resume-download-input:checked)::before {
+  animation: resumeRotate 3s ease-in-out 0.4s forwards;
+}
+
+.resume-download-input:checked + .resume-download-circle {
+  animation:
+    resumePulse 1s forwards,
+    resumeCircleDelete 0.2s ease 3.5s forwards;
+  rotate: 180deg;
+}
+
+.resume-download-input:checked + .resume-download-circle::before {
+  animation: resumeInstalling 3s ease-in-out forwards;
+}
+
+.resume-download-input:checked + .resume-download-circle .resume-download-icon {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.resume-download-input:checked ~ .resume-download-circle .resume-download-square {
+  opacity: 1;
+  visibility: visible;
+}
+
+.resume-download-input:checked ~ .resume-download-title {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.resume-download-input:checked ~ .resume-download-title:last-child {
+  animation: resumeShowResumeMessage 0.4s ease 3.5s forwards;
+}
+
+@keyframes resumePulse {
+  0% {
+    scale: 0.95;
+    box-shadow: 0 0 0 0 rgba(211, 211, 211, 0.7);
+  }
+  70% {
+    scale: 1;
+    box-shadow: 0 0 0 16px rgba(16, 185, 129, 0);
+  }
+  100% {
+    scale: 0.95;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+@keyframes resumePulse {
+  0% {
+    scale: 0.95;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+  70% {
+    scale: 1;
+    box-shadow: 0 0 0 16px rgba(0, 0, 0, 0);
+  }
+  100% {
+    scale: 0.95;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes resumeInstalling {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+@keyframes resumeRotate {
+  0% {
+    transform: rotate(-90deg) translate(27px) rotate(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  99% {
+    transform: rotate(270deg) translate(27px) rotate(270deg);
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes resumeInstalled {
+  100% {
+    width: 140px;
+    border-color: #10b981;
+  }
+}
+
+@keyframes resumeInstalled {
+  100% {
+    width: 140px;
+    border-color: #000000;
+  }
+}
+
+@keyframes resumeCircleDelete {
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes resumeShowResumeMessage {
+  100% {
+    opacity: 1;
+    visibility: visible;
+    right: 60px;
+  }
+}
+
+.typewriter-text {
+  display: inline-block;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+  color: var(--accent-blue);
+  font-weight: 400;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.scroll-indicator {
+  position: absolute !important;
+  bottom: 40px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.container_mouse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.mouse-btn {
+  margin: 4px auto;
+  width: 20px;
+  height: 32px;
+  border: 1.5px solid rgba(227, 229, 230, 0.8);
+  border-radius: 10px;
+  display: flex;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .mouse-btn {
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+.mouse-scroll {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(170deg, rgba(227, 229, 230, 0.8), rgba(227, 229, 230, 0.9));
+  border-radius: 50%;
+  margin: auto;
+  animation: scrolling13 1s linear infinite;
+}
+
+[data-theme="light"] .mouse-scroll {
+  background: linear-gradient(170deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
+}
+
+.container_mouse span:last-child {
+  color: #e3e5e6;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .container_mouse span:last-child {
+  color: #000000;
+}
+
+.scroll-indicator:hover .mouse-btn {
+  border-color: rgba(227, 229, 230, 1);
+}
+
+[data-theme="light"] .scroll-indicator:hover .mouse-btn {
+  border-color: rgba(0, 0, 0, 1);
+}
+
+.scroll-indicator:hover .container_mouse span:last-child {
+  opacity: 1;
+}
+
+@keyframes scrolling13 {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* ===== COMPREHENSIVE RESPONSIVE DESIGN FOR INTRO ===== */
+
+/* Ultra-wide monitors (3440px+) */
+@media (min-width: 3440px) {
+  .intro-name {
+    font-size: 200px;
+  }
+  
+  .intro-subtitle {
+    font-size: 56px;
+  }
+  
+  .social-icons {
+    gap: 40px;
+  }
+  
+  .social-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+  
+  .resume-download-label {
+    width: 160px;
+  }
+  
+  .resume-download-circle {
+    height: 50px;
+    width: 50px;
+  }
+  
+  .resume-download-title {
+    right: 20px;
+  }
+}
+
+/* Large 4K monitors (2560px - 3439px) */
+@media (min-width: 2560px) and (max-width: 3439px) {
+  .intro-name {
+    font-size: 180px;
+  }
+  
+  .intro-subtitle {
+    font-size: 52px;
+  }
+  
+  .social-icons {
+    gap: 35px;
+  }
+  
+  .social-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 22px;
+  }
+  
+  .resume-download-label {
+    width: 150px;
+  }
+  
+  .resume-download-circle {
+    height: 45px;
+    width: 45px;
+  }
+  
+  .resume-download-title {
+    right: 18px;
+  }
+}
+
+/* Standard large monitors (1920px - 2559px) */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .intro-name {
+    font-size: 170px;
+  }
+  
+  .intro-subtitle {
+    font-size: 48px;
+  }
+  
+  .social-icons {
+    gap: 30px;
+  }
+  
+  .social-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+
+/* Standard desktop (1440px - 1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .intro-name {
+    font-size: 160px;
+  }
+  
+  .intro-subtitle {
+    font-size: 44px;
+  }
+  
+  .social-icons {
+    gap: 30px;
+  }
+  
+  .social-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+
+/* Small desktop/large laptop (1280px - 1439px) */
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .intro-name {
+    font-size: 150px;
+  }
+  
+  .intro-subtitle {
+    font-size: 42px;
+  }
+  
+  .social-icons {
+    gap: 28px;
+  }
+  
+  .social-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 19px;
+  }
+}
+
+/* Laptop (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .intro-name {
+    font-size: 140px;
+  }
+  
+  .intro-subtitle {
+    font-size: 40px;
+  }
+  
+  .social-icons {
+    gap: 25px;
+  }
+  
+  .social-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+/* iPad Pro (1024px) */
+@media (min-width: 1024px) and (max-width: 1024px) and (orientation: landscape) {
+  .intro-name {
+    font-size: 120px;
+  }
+  
+  .intro-subtitle {
+    font-size: 36px;
+  }
+  
+  .social-icons {
+    gap: 25px;
+  }
+  
+  .social-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+/* iPad Air (820px) */
+@media (min-width: 820px) and (max-width: 1023px) {
+  .intro-name {
+    font-size: 110px;
+  }
+  
+  .intro-subtitle {
+    font-size: 32px;
+  }
+  
+  .social-icons {
+    gap: 25px;
+  }
+  
+  .social-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+/* iPad Mini (768px) */
+@media (min-width: 768px) and (max-width: 819px) {
+  .intro-name {
+    font-size: 100px;
+  }
+  
+  .intro-subtitle {
+    font-size: 30px;
+  }
+  
+  .social-icons {
+    gap: 22px;
+  }
+  
+  .social-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 17px;
+  }
+}
+
+/* Large phones/Small tablets (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .intro-name {
+    font-size: 90px;
+  }
+  
+  .intro-subtitle {
+    font-size: 28px;
+    padding: 0 20px;
+  }
+  
+  .social-icons {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 17px;
+  }
+  
+  .scroll-indicator {
+    position: absolute !important;
+    bottom: 25px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .container_mouse span:last-child {
+    font-size: 12px;
+  }
+  
+  .mouse-scroll {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* iPhone 14 Pro Max, Samsung Galaxy S20 Ultra (428px) */
+@media (min-width: 428px) and (max-width: 480px) {
+  .intro-name {
+    font-size: 75px;
+  }
+  
+  .intro-subtitle {
+    font-size: 24px;
+    padding: 0 15px;
+  }
+  
+  .social-icons {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .resume-download-label {
+    width: 130px;
+  }
+  
+  .resume-download-circle {
+    height: 38px;
+    width: 38px;
+  }
+  
+  .resume-download-title {
+    right: 12px;
+  }
+  
+  .scroll-indicator {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .container_mouse span:last-child {
+    font-size: 11px;
+  }
+  
+  .mouse-scroll {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* iPhone 12 Pro, iPhone XR (390px) */
+@media (min-width: 390px) and (max-width: 427px) {
+  .intro-name {
+    font-size: 65px;
+  }
+  
+  .intro-subtitle {
+    font-size: 22px;
+    padding: 0 15px;
+  }
+  
+  .social-icons {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 15px;
+  }
+  
+  .resume-download-label {
+    width: 125px;
+  }
+  
+  .resume-download-circle {
+    height: 36px;
+    width: 36px;
+  }
+  
+  .resume-download-title {
+    right: 10px;
+  }
+  
+  .scroll-indicator {
+    position: absolute !important;
+    bottom: 18px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .container_mouse span:last-child {
+    font-size: 10px;
+  }
+  
+  .mouse-scroll {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* iPhone SE, Samsung Galaxy A51/71 (375px) */
+@media (min-width: 375px) and (max-width: 389px) {
+  .intro-name {
+    font-size: 60px;
+  }
+  
+  .intro-subtitle {
+    font-size: 20px;
+    padding: 0 15px;
+  }
+  
+  .social-icons {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+  
+  .resume-download-label {
+    width: 120px;
+  }
+  
+  .resume-download-circle {
+    height: 34px;
+    width: 34px;
+  }
+  
+  .resume-download-title {
+    right: 8px;
+  }
+  
+  .scroll-indicator {
+    position: absolute !important;
+    bottom: 16px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .container_mouse span:last-child {
+    font-size: 9px;
+  }
+  
+  .mouse-scroll {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Samsung Galaxy S8+ (360px) */
+@media (min-width: 360px) and (max-width: 374px) {
+  .intro-name {
+    font-size: 55px;
+  }
+  
+  .intro-subtitle {
+    font-size: 18px;
+    padding: 0 12px;
+  }
+  
+  .social-icons {
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+  
+  .resume-download-label {
+    width: 115px;
+  }
+  
+  .resume-download-circle {
+    height: 32px;
+    width: 32px;
+  }
+  
+  .resume-download-title {
+    right: 6px;
+  }
+  
+  .scroll-indicator {
+    position: absolute !important;
+    bottom: 15px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .container_mouse span:last-child {
+    font-size: 8px;
+  }
+  
+  .mouse-scroll {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Small phones (320px - 359px) */
+@media (min-width: 320px) and (max-width: 359px) {
+  .intro-name {
+    font-size: 50px;
+  }
+  
+  .intro-subtitle {
+    font-size: 16px;
+    padding: 0 10px;
+  }
+  
+  .social-icons {
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .resume-download-label {
+    width: 110px;
+  }
+  
+  .resume-download-circle {
+    height: 30px;
+    width: 30px;
+  }
+  
+  .resume-download-title {
+    right: 4px;
+  }
+  
+  .scroll-indicator {
+    position: absolute !important;
+    bottom: 12px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .container_mouse span:last-child {
+    font-size: 7px;
+  }
+  
+  .mouse-scroll {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Foldable devices - Surface Duo (540px x 720px) */
+@media (min-width: 540px) and (max-width: 720px) and (orientation: portrait) {
+  .intro-name {
+    font-size: 85px;
+  }
+  
+  .intro-subtitle {
+    font-size: 26px;
+    padding: 0 20px;
+  }
+  
+  .social-icons {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 17px;
+  }
+  
+  .scroll-indicator {
+    position: absolute !important;
+    bottom: 25px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .container_mouse span:last-child {
+    font-size: 12px;
+  }
+  
+  .mouse-scroll {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Galaxy Z Fold 5 - Folded (280px) */
+@media (max-width: 280px) {
+  .intro-name {
+    font-size: 40px;
+  }
+  
+  .intro-subtitle {
+    font-size: 14px;
+    padding: 0 8px;
+  }
+  
+  .social-icons {
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+  }
+  
+  .resume-download-label {
+    width: 100px;
+  }
+  
+  .resume-download-circle {
+    height: 28px;
+    width: 28px;
+  }
+  
+  .resume-download-title {
+    right: 2px;
+  }
+  
+  .scroll-indicator {
+    position: absolute !important;
+    bottom: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .container_mouse span:last-child {
+    font-size: 6px;
+  }
+  
+  .mouse-scroll {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Galaxy Z Fold 5 - Unfolded (1768px) */
+@media (min-width: 1768px) and (max-width: 1768px) {
+  .intro-name {
+    font-size: 190px;
+  }
+  
+  .intro-subtitle {
+    font-size: 54px;
+  }
+  
+  .social-icons {
+    gap: 38px;
+  }
+  
+  .social-icon {
+    width: 58px;
+    height: 58px;
+    font-size: 23px;
+  }
+  
+  .resume-download-label {
+    width: 155px;
+  }
+  
+  .resume-download-circle {
+    height: 48px;
+    width: 48px;
+  }
+  
+  .resume-download-title {
+    right: 18px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  .intro-section {
+    height: 100vh;
+    padding: 10px 0;
+  }
+  
+  .intro-name {
+    font-size: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .intro-subtitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .social-icons {
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .social-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+  
+  .scroll-indicator {
+    position: absolute !important;
+    bottom: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .container_mouse span:last-child {
+    font-size: 6px;
+  }
+  
+  .mouse-scroll {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .intro-name {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .social-icon {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

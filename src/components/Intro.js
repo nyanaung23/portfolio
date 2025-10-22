@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import TypewriterText from './TypewriterText';
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
+import './Intro.css';
 
 const Intro = ({ theme }) => {
   const canvasRef = useRef(null);
@@ -48,17 +49,17 @@ const Intro = ({ theme }) => {
       let targetParticleCount;
       
       if (window.innerWidth <= 375) {
-        targetParticleCount = 40;
+        targetParticleCount = 30;
       } else if (window.innerWidth <= 480) {
-        targetParticleCount = 60;
+        targetParticleCount = 45;
       } else if (window.innerWidth <= 768) {
-        targetParticleCount = 80;
+        targetParticleCount = 60;
       } else if (window.innerWidth <= 1024) {
-        targetParticleCount = 100;
+        targetParticleCount = 75;
       } else if (window.innerWidth <= 1366) {
-        targetParticleCount = 120;
+        targetParticleCount = 90;
       } else {
-        targetParticleCount = 150;
+        targetParticleCount = 105;
       }
       
       if (targetParticleCount > currentParticleCount) {
@@ -88,17 +89,17 @@ const Intro = ({ theme }) => {
       
       let particleCount;
       if (window.innerWidth <= 375) {
-        particleCount = 40;
+        particleCount = 30;
       } else if (window.innerWidth <= 480) {
-        particleCount = 60;
+        particleCount = 45;
       } else if (window.innerWidth <= 768) {
-        particleCount = 80;
+        particleCount = 60;
       } else if (window.innerWidth <= 1024) {
-        particleCount = 100;
+        particleCount = 75;
       } else if (window.innerWidth <= 1366) {
-        particleCount = 120;
+        particleCount = 90;
       } else {
-        particleCount = 150;
+        particleCount = 105;
       }
       
       for (let i = 0; i < particleCount; i++) {
@@ -322,14 +323,14 @@ const Intro = ({ theme }) => {
     };
   }, [theme]);
 
-  const scrollToAbout = () => {
+  const scrollToAbout = useCallback(() => {
     const element = document.getElementById('about');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, []);
 
-  const downloadResume = (event) => {
+  const downloadResume = useCallback((event) => {
     if (event.target.checked) {
       const link = document.createElement('a');
       link.href = '/Resume.pdf';
@@ -342,7 +343,7 @@ const Intro = ({ theme }) => {
         event.target.checked = false;
       }, 4000);
     }
-  };
+  }, []);
 
   return (
     <section className="intro-section">
@@ -351,12 +352,17 @@ const Intro = ({ theme }) => {
         className="particles-canvas"
       />
       
-      <div className="intro-content">
+      <motion.div 
+        className="intro-content"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         <motion.h1
           className="intro-name"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
+          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
         >
           Nyan Aung
         </motion.h1>
@@ -365,7 +371,7 @@ const Intro = ({ theme }) => {
           className="intro-subtitle"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
         >
           <TypewriterText 
             texts={[
@@ -381,12 +387,12 @@ const Intro = ({ theme }) => {
           />
         </motion.div>
 
-                <motion.div
-                  className="social-icons"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 1.2 }}
-                >
+        <motion.div
+          className="social-icons"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+        >
                   <motion.a
                     href="#"
                     className="social-icon"
@@ -415,13 +421,13 @@ const Intro = ({ theme }) => {
                   </motion.a>
                 </motion.div>
 
-                <motion.div
-                  className="resume-download-container"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 1.4 }}
-                  style={{ marginTop: '20px' }}
-                >
+        <motion.div
+          className="resume-download-container"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.4, ease: "easeOut" }}
+          style={{ marginTop: '20px' }}
+        >
                   <label className="resume-download-label">
                     <input 
                       type="checkbox" 
@@ -450,747 +456,20 @@ const Intro = ({ theme }) => {
                     <p className="resume-download-title">Resume</p>
                   </label>
                 </motion.div>
-      </div>
-
-      <motion.div
-        className="scroll-indicator"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        onClick={scrollToAbout}
-      >
-        <div className="scrolldown" style={{'--color': theme === 'dark' ? '#e3e5e6' : '#333333'}}>
-          <div className="chevrons">
-            <div className="chevrondown"></div>
-            <div className="chevrondown"></div>
-          </div>
-        </div>
       </motion.div>
 
-      <style jsx>{`
-                .intro-section {
-                  height: 100vh;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  position: relative;
-                  background: ${theme === 'dark' ? 'linear-gradient(135deg, #042a1c 0%, #042a1c 100%)' : 'linear-gradient(135deg, #EEEEEE 0%, #EEEEEE 100%)'};
-                  overflow: hidden;
-                }
-        
-        .particles-canvas {
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          width: 100% !important;
-          height: 100% !important;
-          z-index: 1 !important;
-          pointer-events: none;
-        }
-        
-                .intro-content {
-                  text-align: center;
-                  z-index: 10;
-                  position: relative;
-                  transform: translateY(-20px);
-                }
-        
-        .intro-name {
-          font-family: 'Chiron Sung HK', serif;
-          font-size: 170px;
-          font-weight: 900;
-          color: ${theme === 'dark' ? '#e3e5e6' : '#000000'};
-          margin-bottom: 20px;
-        }
-        
-        .intro-subtitle {
-          font-family: 'Inter', sans-serif;
-          font-size: 48px;
-          font-weight: 700;
-          color: ${theme === 'dark' ? '#e3e5e6' : '#000000'};
-          opacity: 0.9;
-          max-width: 600px;
-          margin: 0 auto 40px auto;
-          min-height: 50px;
-        }
-        
-        .social-icons {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 30px;
-          margin-top: 20px;
-        }
-        
-        .social-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: ${theme === 'dark' ? 'rgba(227, 229, 230, 0.1)' : 'rgba(0, 0, 0, 0.1)'} !important;
-          color: ${theme === 'dark' ? '#e3e5e6' : '#000000'} !important;
-          text-decoration: none;
-          font-size: 20px;
-          transition: all 0.3s ease;
-          border: 2px solid ${theme === 'dark' ? 'rgba(227, 229, 230, 0.3)' : 'rgba(0, 0, 0, 0.3)'} !important;
-        }
-        
-        .social-icon:hover {
-          background: ${theme === 'dark' ? 'rgba(227, 229, 230, 0.2)' : 'rgba(0, 0, 0, 0.2)'} !important;
-          border-color: ${theme === 'dark' ? '#e3e5e6' : '#000000'} !important;
-          box-shadow: 0 4px 15px ${theme === 'dark' ? 'rgba(227, 229, 230, 0.3)' : 'rgba(0, 0, 0, 0.3)'} !important;
-        }
-        
-        .resume-download-container {
-          padding: 0;
-          margin: 0;
-          box-sizing: border-box;
-          font-family: Arial, Helvetica, sans-serif;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        
-        .resume-download-label {
-          background-color: transparent;
-          border: 2px solid ${theme === 'dark' ? '#e3e5e6' : '#000000'};
-          display: flex;
-          align-items: center;
-          border-radius: 50px;
-          width: 140px;
-          cursor: pointer;
-          transition: all 0.4s ease;
-          padding: 5px;
-          position: relative;
-        }
-        
-        .resume-download-label:hover {
-          background: ${theme === 'dark' ? 'rgba(227, 229, 230, 0.2)' : 'rgba(0, 0, 0, 0.2)'};
-          border-color: ${theme === 'dark' ? '#e3e5e6' : '#000000'};
-          box-shadow: 0 4px 15px ${theme === 'dark' ? 'rgba(227, 229, 230, 0.3)' : 'rgba(0, 0, 0, 0.3)'};
-        }
-        
-        .resume-download-label::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          background-color: ${theme === 'dark' ? '#e3e5e6' : '#000000'};
-          width: 8px;
-          height: 8px;
-          transition: all 0.4s ease;
-          border-radius: 100%;
-          margin: auto;
-          opacity: 0;
-          visibility: hidden;
-        }
-        
-        .resume-download-input {
-          display: none;
-        }
-        
-        .resume-download-title {
-          font-size: 18px;
-          color: ${theme === 'dark' ? '#e3e5e6' : '#000000'};
-          transition: all 0.4s ease;
-          position: absolute;
-          right: 18px;
-          bottom: 14px;
-          text-align: center;
-        }
-        
-        .resume-download-title:last-child {
-          opacity: 0;
-          visibility: hidden;
-        }
-        
-        .resume-download-circle {
-          height: 40px;
-          width: 40px;
-          border-radius: 50%;
-          background-color: ${theme === 'dark' ? '#e3e5e6' : '#000000'};
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          transition: all 0.4s ease;
-          position: relative;
-          box-shadow: 0 0 0 0 ${theme === 'dark' ? 'rgba(211, 211, 211, 0.7)' : 'rgba(0, 0, 0, 0.7)'};
-          overflow: hidden;
-        }
-        
-        .resume-download-icon {
-          color: #fff;
-          width: 25px;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          transition: all 0.4s ease;
-        }
-        
-        .resume-download-square {
-          aspect-ratio: 1;
-          width: 12px;
-          border-radius: 2px;
-          background-color: #fff;
-          opacity: 0;
-          visibility: hidden;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          transition: all 0.4s ease;
-        }
-        
-        .resume-download-circle::before {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 0;
-          background-color: ${theme === 'dark' ? '#D3D3D3' : '#333333'};
-          width: 100%;
-          height: 0;
-          transition: all 0.4s ease;
-        }
-        
-        .resume-download-label:has(.resume-download-input:checked) {
-          width: 55px;
-          animation: resumeInstalled 0.4s ease 3.5s forwards;
-        }
-        
-        .resume-download-label:has(.resume-download-input:checked)::before {
-          animation: resumeRotate 3s ease-in-out 0.4s forwards;
-        }
-        
-        .resume-download-input:checked + .resume-download-circle {
-          animation:
-            resumePulse 1s forwards,
-            resumeCircleDelete 0.2s ease 3.5s forwards;
-          rotate: 180deg;
-        }
-        
-        .resume-download-input:checked + .resume-download-circle::before {
-          animation: resumeInstalling 3s ease-in-out forwards;
-        }
-        
-        .resume-download-input:checked + .resume-download-circle .resume-download-icon {
-          opacity: 0;
-          visibility: hidden;
-        }
-        
-        .resume-download-input:checked ~ .resume-download-circle .resume-download-square {
-          opacity: 1;
-          visibility: visible;
-        }
-        
-        .resume-download-input:checked ~ .resume-download-title {
-          opacity: 0;
-          visibility: hidden;
-        }
-        
-        .resume-download-input:checked ~ .resume-download-title:last-child {
-          animation: resumeShowResumeMessage 0.4s ease 3.5s forwards;
-        }
-        
-        @keyframes resumePulse {
-          0% {
-            scale: 0.95;
-            box-shadow: 0 0 0 0 ${theme === 'dark' ? 'rgba(211, 211, 211, 0.7)' : 'rgba(0, 0, 0, 0.7)'};
-          }
-          70% {
-            scale: 1;
-            box-shadow: 0 0 0 16px ${theme === 'dark' ? 'rgba(16, 185, 129, 0)' : 'rgba(0, 0, 0, 0)'};
-          }
-          100% {
-            scale: 0.95;
-            box-shadow: 0 0 0 0 ${theme === 'dark' ? 'rgba(16, 185, 129, 0)' : 'rgba(0, 0, 0, 0)'};
-          }
-        }
-        
-        @keyframes resumeInstalling {
-          from {
-            height: 0;
-          }
-          to {
-            height: 100%;
-          }
-        }
-        
-        @keyframes resumeRotate {
-          0% {
-            transform: rotate(-90deg) translate(27px) rotate(0);
-            opacity: 1;
-            visibility: visible;
-          }
-          99% {
-            transform: rotate(270deg) translate(27px) rotate(270deg);
-            opacity: 1;
-            visibility: visible;
-          }
-          100% {
-            opacity: 0;
-            visibility: hidden;
-          }
-        }
-        
-        @keyframes resumeInstalled {
-          100% {
-            width: 140px;
-            border-color: ${theme === 'dark' ? '#10b981' : '#000000'};
-          }
-        }
-        
-        @keyframes resumeCircleDelete {
-          100% {
-            opacity: 0;
-            visibility: hidden;
-          }
-        }
-        
-        @keyframes resumeShowResumeMessage {
-          100% {
-            opacity: 1;
-            visibility: visible;
-            right: 60px;
-          }
-        }
-        
-        .typewriter-text {
-          display: inline-block;
-        }
-        
-        .cursor {
-          animation: blink 1s infinite;
-          color: var(--accent-blue);
-          font-weight: 400;
-        }
-        
-        @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
-        }
-        
-        .scroll-indicator {
-          position: absolute;
-          bottom: 40px;
-          left: 50%;
-          transform: translateX(-50%);
-          cursor: pointer;
-          z-index: 10;
-        }
-        
-        .scrolldown {
-          --sizeX: 30px;
-          --sizeY: 50px;
-          position: relative;
-          width: var(--sizeX);
-          height: var(--sizeY);
-          margin-left: calc(var(--sizeX) / 2);
-          border: calc(var(--sizeX) / 10) solid var(--color);
-          border-radius: 50px;
-          box-sizing: border-box;
-          margin-bottom: 16px;
-          cursor: pointer;
-        }
+             <div
+        className="scroll-indicator"
+        onClick={scrollToAbout}
+             >
+               <div className="container_mouse">
+                 <span className="mouse-btn">
+                   <span className="mouse-scroll"></span>
+                 </span>
+                 <span>Scroll Down</span>
+          </div>
+        </div>
 
-        .scrolldown::before {
-          content: "";
-          position: absolute;
-          bottom: 30px;
-          left: 50%;
-          width: 6px;
-          height: 6px;
-          margin-left: -3px;
-          background-color: var(--color);
-          border-radius: 100%;
-          animation: scrolldown-anim 2s infinite;
-          box-sizing: border-box;
-          box-shadow: 0px -5px 3px 1px rgba(42, 84, 112, 0.4);
-        }
-
-        @keyframes scrolldown-anim {
-          0% {
-            opacity: 0;
-            height: 6px;
-          }
-
-          40% {
-            opacity: 1;
-            height: 10px;
-          }
-
-          80% {
-            transform: translate(0, 20px);
-            height: 10px;
-            opacity: 0;
-          }
-
-          100% {
-            height: 3px;
-            opacity: 0;
-          }
-        }
-
-        .chevrons {
-          padding: 6px 0 0 0;
-          margin-left: -3px;
-          margin-top: 48px;
-          width: 30px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .chevrondown {
-          margin-top: -6px;
-          position: relative;
-          border: solid var(--color);
-          border-width: 0 3px 3px 0;
-          display: inline-block;
-          width: 10px;
-          height: 10px;
-          transform: rotate(45deg);
-        }
-
-        .chevrondown:nth-child(odd) {
-          animation: pulse54012 500ms ease infinite alternate;
-        }
-
-        .chevrondown:nth-child(even) {
-          animation: pulse54012 500ms ease infinite alternate 250ms;
-        }
-
-        @keyframes pulse54012 {
-          from {
-            opacity: 0;
-          }
-
-          to {
-            opacity: 0.5;
-          }
-        }
-        
-        @media (max-width: 1920px) {
-          .intro-name {
-            font-size: 160px;
-          }
-          
-          .intro-subtitle {
-            font-size: 44px;
-          }
-        }
-        
-        @media (max-width: 1680px) {
-          .intro-name {
-            font-size: 150px;
-          }
-          
-          .intro-subtitle {
-            font-size: 42px;
-          }
-        }
-        
-        @media (max-width: 1440px) {
-          .intro-name {
-            font-size: 140px;
-          }
-          
-          .intro-subtitle {
-            font-size: 40px;
-          }
-        }
-        
-        @media (max-width: 1366px) {
-          .intro-name {
-            font-size: 130px;
-          }
-          
-          .intro-subtitle {
-            font-size: 38px;
-          }
-          
-          .social-icons {
-            gap: 25px;
-          }
-          
-          .social-icon {
-            width: 45px;
-            height: 45px;
-            font-size: 18px;
-          }
-          
-          .resume-button {
-            padding: 10px 20px;
-            font-size: 15px;
-          }
-        }
-        
-        @media (max-width: 1280px) {
-          .intro-name {
-            font-size: 120px;
-          }
-          
-          .intro-subtitle {
-            font-size: 36px;
-          }
-        }
-        
-        @media (max-width: 1024px) {
-          .intro-name {
-            font-size: 90px;
-          }
-          
-          .intro-subtitle {
-            font-size: 28px;
-          }
-          
-          .social-icons {
-            gap: 20px;
-          }
-          
-          .social-icon {
-            width: 45px;
-            height: 45px;
-            font-size: 18px;
-          }
-          
-          .resume-button {
-            padding: 10px 20px;
-            font-size: 14px;
-          }
-          
-          .scroll-text {
-            font-size: 13px;
-          }
-          
-          .scroll-arrow {
-            font-size: 22px;
-          }
-        }
-        
-        @media (max-width: 912px) {
-          .intro-name {
-            font-size: 80px;
-          }
-          
-          .intro-subtitle {
-            font-size: 26px;
-          }
-        }
-        
-        @media (max-width: 820px) {
-          .intro-name {
-            font-size: 75px;
-          }
-          
-          .intro-subtitle {
-            font-size: 24px;
-          }
-        }
-        
-        @media (max-width: 768px) {
-          .intro-name {
-            font-size: 85px;
-          }
-          
-          .intro-subtitle {
-            font-size: 26px;
-            padding: 0 20px;
-          }
-          
-          .social-icons {
-            gap: 18px;
-            flex-wrap: wrap;
-            justify-content: center;
-          }
-          
-          .social-icon {
-            width: 42px;
-            height: 42px;
-            font-size: 17px;
-          }
-          
-          .resume-button {
-            padding: 9px 18px;
-            font-size: 13px;
-          }
-          
-          .scroll-indicator {
-            bottom: 20px;
-          }
-          
-          .scroll-text {
-            font-size: 12px;
-          }
-          
-          .scroll-arrow {
-            font-size: 20px;
-          }
-        }
-        
-        @media (max-width: 667px) {
-          .intro-name {
-            font-size: 65px;
-          }
-          
-          .intro-subtitle {
-            font-size: 20px;
-          }
-        }
-        
-        @media (max-width: 600px) {
-          .intro-name {
-            font-size: 60px;
-          }
-          
-          .intro-subtitle {
-            font-size: 19px;
-          }
-        }
-        
-        @media (max-width: 540px) {
-          .intro-name {
-            font-size: 55px;
-          }
-          
-          .intro-subtitle {
-            font-size: 18px;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .intro-name {
-            font-size: 60px;
-          }
-          
-          .intro-subtitle {
-            font-size: 20px;
-          }
-          
-          .social-icons {
-            gap: 15px;
-          }
-          
-          .social-icon {
-            width: 40px;
-            height: 40px;
-            font-size: 16px;
-          }
-          
-          .resume-button {
-            padding: 8px 16px;
-            font-size: 12px;
-          }
-          
-          .scroll-text {
-            font-size: 11px;
-          }
-          
-          .scroll-arrow {
-            font-size: 18px;
-          }
-        }
-        
-        @media (max-width: 414px) {
-          .intro-name {
-            font-size: 45px;
-          }
-          
-          .intro-subtitle {
-            font-size: 16px;
-          }
-        }
-        
-        @media (max-width: 390px) {
-          .intro-name {
-            font-size: 42px;
-          }
-          
-          .intro-subtitle {
-            font-size: 15px;
-          }
-        }
-        
-        @media (max-width: 375px) {
-          .intro-name {
-            font-size: 50px;
-          }
-          
-          .intro-subtitle {
-            font-size: 18px;
-          }
-          
-          .social-icons {
-            gap: 12px;
-          }
-          
-          .social-icon {
-            width: 38px;
-            height: 38px;
-            font-size: 15px;
-          }
-          
-          .resume-button {
-            padding: 7px 14px;
-            font-size: 11px;
-          }
-          
-          .scroll-text {
-            font-size: 10px;
-          }
-          
-          .scroll-arrow {
-            font-size: 16px;
-          }
-        }
-        
-        @media (max-width: 360px) {
-          .intro-name {
-            font-size: 38px;
-          }
-          
-          .intro-subtitle {
-            font-size: 13px;
-          }
-        }
-        
-        @media (max-width: 320px) {
-          .intro-name {
-            font-size: 35px;
-          }
-          
-          .intro-subtitle {
-            font-size: 12px;
-          }
-          
-          .social-icons {
-            gap: 10px;
-          }
-          
-          .social-icon {
-            width: 35px;
-            height: 35px;
-            font-size: 14px;
-          }
-          
-          .resume-button {
-            padding: 6px 12px;
-            font-size: 10px;
-          }
-          
-          .scroll-text {
-            font-size: 9px;
-          }
-          
-          .scroll-arrow {
-            font-size: 14px;
-          }
-        }
-      `}</style>
     </section>
   );
 };

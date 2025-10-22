@@ -194,21 +194,61 @@ const SplashScreen = () => {
         
         @media (max-width: 768px) {
           .liquid-loader {
-            gap: 30px;
+            gap: 20px;
           }
           
           .loading-title {
-            font-size: 28px;
-            letter-spacing: 2px;
+            font-size: 20px;
+            letter-spacing: 1px;
           }
           
           .loader-track {
-            width: 400px;
-            height: 40px;
+            width: 300px;
+            height: 30px;
           }
           
           .liquid-fill {
-            border-radius: 18px;
+            border-radius: 14px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .liquid-loader {
+            gap: 15px;
+          }
+          
+          .loading-title {
+            font-size: 16px;
+            letter-spacing: 0.5px;
+          }
+          
+          .loader-track {
+            width: 250px;
+            height: 25px;
+          }
+          
+          .liquid-fill {
+            border-radius: 12px;
+          }
+        }
+        
+        @media (max-width: 360px) {
+          .liquid-loader {
+            gap: 12px;
+          }
+          
+          .loading-title {
+            font-size: 14px;
+            letter-spacing: 0px;
+          }
+          
+          .loader-track {
+            width: 200px;
+            height: 20px;
+          }
+          
+          .liquid-fill {
+            border-radius: 10px;
           }
         }
       `}</style>
