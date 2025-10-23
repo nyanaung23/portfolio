@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import SplashScreen from './components/SplashScreen';
 import Intro from './components/Intro';
 import Navbar from './components/Navbar';
 import About from './components/About';
 import Skills from './components/Skills';
+import Projects from './components/Projects';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,9 +23,9 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
+  }, [theme]);
 
   return (
     <div className="App">
@@ -45,6 +46,7 @@ function App() {
             <Intro theme={theme} />
             <About theme={theme} />
             <Skills theme={theme} />
+            <Projects theme={theme} />
           </motion.div>
         )}
       </AnimatePresence>

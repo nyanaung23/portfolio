@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 const Skills = ({ theme }) => {
@@ -8,14 +8,14 @@ const Skills = ({ theme }) => {
   ];
   
   const frameworks = [
-    'React', 'Node.js', 'Express', 'Django', 'scikit-learn', 'NumPy', 'Mongoose'
+    'React', 'Node.js', 'Express', 'Django', 'scikit-learn', 'NumPy', 'Mongoose', 'Framer Motion'
   ];
   
   const tools = [
     'Git', 'GitHub', 'Docker', 'MongoDB', 'PostgreSQL', 'JWT', 'Cloudinary', 'REST APIs', 'Postman', 'Vercel', 'Railway'
   ];
 
-  const getIconPath = (name, isHovered = false) => {
+  const getIconPath = useMemo(() => (name, isHovered = false) => {
     switch (name) {
       case 'C++': return isHovered ? '/icons/C++ (color).svg' : '/icons/C++.svg';
       case 'C': return isHovered ? '/icons/C(color).svg' : '/icons/C.svg';
@@ -30,11 +30,12 @@ const Skills = ({ theme }) => {
       case 'REST APIs': return isHovered ? '/icons/RestAPIs(color).svg' : '/icons/RestAPIs.svg';
       case 'Node.js': return '/icons/Node.js.svg';
       case 'Mongoose': return '/icons/Mongoose.js.svg';
+      case 'Framer Motion': return '/icons/Framer(color).svg';
       case 'scikit-learn': return isHovered ? '/icons/scikit-learn(color).svg' : '/icons/scikit-learn.svg';
       case 'Railway': return '/icons/railway.svg';
       default: return `/icons/${name}.svg`;
     }
-  };
+  }, []);
 
   return (
     <section id="skills" className="skills-section">
@@ -42,31 +43,27 @@ const Skills = ({ theme }) => {
         className="skills-container"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
         viewport={{ once: false, margin: '-100px' }}
       >
-        <motion.h2
+        <h2
           className="about-title text-shadows"
-          initial={{ opacity: 0, scale: 0.8, y: -30 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-          viewport={{ once: false }}
         >
           Technical Skills
-        </motion.h2>
+        </h2>
 
         <motion.div 
           className="skills-grid"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
+          transition={{ duration: 0.25, delay: 0.15, ease: 'easeOut' }}
           viewport={{ once: false }}
         >
           <motion.div 
             className="skills-category"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.7, ease: 'easeOut' }}
+            transition={{ duration: 0.2, delay: 0.2, ease: 'easeOut' }}
             viewport={{ once: false }}
           >
             <h3 className="skills-category-title">Languages</h3>
@@ -78,8 +75,8 @@ const Skills = ({ theme }) => {
                   initial={{ opacity: 0, scale: 0.8, y: 20 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ 
-                    duration: 0.5, 
-                    delay: 0.8 + (index * 0.1), 
+                    duration: 0.3, 
+                    delay: 0.4 + (index * 0.05), 
                     ease: 'easeOut' 
                   }}
                   viewport={{ once: false }}
@@ -102,7 +99,7 @@ const Skills = ({ theme }) => {
             className="skills-category"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.8, ease: 'easeOut' }}
+            transition={{ duration: 0.2, delay: 0.25, ease: 'easeOut' }}
             viewport={{ once: false }}
           >
             <h3 className="skills-category-title">Frameworks & Libraries</h3>
@@ -114,8 +111,8 @@ const Skills = ({ theme }) => {
                   initial={{ opacity: 0, scale: 0.8, y: 20 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ 
-                    duration: 0.5, 
-                    delay: 0.9 + (index * 0.1), 
+                    duration: 0.3, 
+                    delay: 0.45 + (index * 0.05), 
                     ease: 'easeOut' 
                   }}
                   viewport={{ once: false }}
@@ -138,7 +135,7 @@ const Skills = ({ theme }) => {
             className="skills-category"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0, ease: 'easeOut' }}
+            transition={{ duration: 0.2, delay: 0.3, ease: 'easeOut' }}
             viewport={{ once: false }}
           >
             <h3 className="skills-category-title">Developer Tools</h3>
@@ -150,8 +147,8 @@ const Skills = ({ theme }) => {
                   initial={{ opacity: 0, scale: 0.8, y: 20 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ 
-                    duration: 0.5, 
-                    delay: 1.1 + (index * 0.05), 
+                    duration: 0.3, 
+                    delay: 0.5 + (index * 0.03), 
                     ease: 'easeOut' 
                   }}
                   viewport={{ once: false }}
@@ -174,15 +171,14 @@ const Skills = ({ theme }) => {
 
       <style jsx>{`
         .skills-section {
+          height: auto;
           min-height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 60px 0;
+          padding: 40px 0;
           background: ${theme === 'dark' ? 'linear-gradient(135deg, #042a1c 0%, #042a1c 100%)' : 'linear-gradient(135deg, #EEEEEE 0%, #EEEEEE 100%)'};
           transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-          scroll-snap-align: start;
-          scroll-snap-stop: always;
         }
         .skills-container { max-width: 1200px; width: 100%; padding: 0 20px; }
         .about-title { color: ${theme === 'dark' ? '#e3e5e6' : '#000000'}; }
@@ -215,7 +211,7 @@ const Skills = ({ theme }) => {
           display: grid;
           grid-template-columns: 1fr 1fr;
           grid-template-rows: auto auto;
-          gap: 16px;
+          gap: 100px;
         }
         .skills-category:last-child {
           grid-column: 1 / -1;
@@ -224,7 +220,7 @@ const Skills = ({ theme }) => {
           background: ${theme === 'dark' ? 'rgba(227, 229, 230, 0.04)' : 'rgba(0, 0, 0, 0.04)'}; 
           border: 1px solid ${theme === 'dark' ? 'rgba(227, 229, 230, 0.15)' : 'rgba(0, 0, 0, 0.08)'}; 
           border-radius: 12px; 
-          padding: 12px; 
+          padding: 20px; 
           box-shadow: ${theme === 'dark' ? '0 6px 20px rgba(0,0,0,0.25)' : '0 6px 15px rgba(0,0,0,0.06)'}; 
           overflow: hidden; 
           box-sizing: border-box; 
@@ -294,7 +290,6 @@ const Skills = ({ theme }) => {
           word-break: break-word;
         }
 
-        /* Ultra-wide monitors (3440px+) */
         @media (min-width: 3440px) {
           .skills-section { padding: 20px 0; }
           .skills-container { padding: 0 40px; }
@@ -308,7 +303,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 12px; }
         }
         
-        /* Large 4K monitors (2560px - 3439px) */
         @media (min-width: 2560px) and (max-width: 3439px) {
           .skills-section { padding: 70px 0; }
           .skills-container { padding: 0 30px; }
@@ -322,7 +316,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 11px; }
         }
         
-        /* Standard large monitors (1920px - 2559px) */
         @media (min-width: 1920px) and (max-width: 2559px) {
           .skills-section { padding: 30px 0; }
           .skills-container { padding: 0 25px; }
@@ -336,7 +329,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 10px; }
         }
         
-        /* Standard desktop (1440px - 1919px) */
         @media (min-width: 1440px) and (max-width: 1919px) {
           .skills-section { padding: 30px 0; }
           .skills-container { padding: 0 20px; }
@@ -350,7 +342,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 10px; }
         }
         
-        /* Small desktop/large laptop (1280px - 1439px) */
         @media (min-width: 1280px) and (max-width: 1439px) {
           .skills-section { padding: 25px 0; }
           .skills-container { padding: 0 20px; }
@@ -364,7 +355,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 10px; }
         }
         
-        /* Laptop (1024px - 1279px) */
         @media (min-width: 1024px) and (max-width: 1279px) {
           .skills-section { padding: 25px 0; }
           .skills-container { padding: 0 20px; }
@@ -378,7 +368,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 10px; }
         }
         
-        /* iPad Pro (1024px) */
         @media (min-width: 1024px) and (max-width: 1024px) and (orientation: landscape) {
           .skills-section { padding: 20px 0; }
           .skills-container { padding: 0 30px; }
@@ -392,7 +381,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 9px; }
         }
         
-        /* iPad Air (820px) */
         @media (min-width: 820px) and (max-width: 1023px) {
           .skills-section { padding: 20px 0; }
           .skills-container { padding: 0 25px; }
@@ -406,7 +394,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 9px; }
         }
         
-        /* iPad Mini (768px) */
         @media (min-width: 768px) and (max-width: 819px) {
           .skills-section { padding: 20px 0; }
           .skills-container { padding: 0 20px; }
@@ -420,7 +407,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 9px; }
         }
         
-        /* Large phones/Small tablets (481px - 767px) */
         @media (min-width: 481px) and (max-width: 767px) {
           .skills-section { padding: 0 0 40px 0; }
           .skills-container { padding: 0 20px; }
@@ -435,7 +421,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 9px; }
         }
         
-        /* iPhone 14 Pro Max, Samsung Galaxy S20 Ultra (428px) */
         @media (min-width: 428px) and (max-width: 480px) {
           .skills-section { padding: 0 0 35px 0; }
           .skills-container { padding: 0 18px; }
@@ -450,7 +435,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 8px; }
         }
         
-        /* iPhone 12 Pro, iPhone XR (390px) */
         @media (min-width: 390px) and (max-width: 427px) {
           .skills-section { padding: 0 0 30px 0; }
           .skills-container { padding: 0 16px; }
@@ -465,7 +449,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 8px; }
         }
         
-        /* iPhone SE, Samsung Galaxy A51/71 (375px) */
         @media (min-width: 375px) and (max-width: 389px) {
           .skills-section { padding: 0 0 25px 0; }
           .skills-container { padding: 0 15px; }
@@ -480,7 +463,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 7px; }
         }
         
-        /* Samsung Galaxy S8+ (360px) */
         @media (min-width: 360px) and (max-width: 374px) {
           .skills-section { padding: 0 0 25px 0; }
           .skills-container { padding: 0 14px; }
@@ -495,7 +477,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 6px; }
         }
         
-        /* Small phones (320px - 359px) */
         @media (min-width: 320px) and (max-width: 359px) {
           .skills-section { padding: 0 0 20px 0; }
           .skills-container { padding: 0 12px; }
@@ -510,7 +491,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 5px; }
         }
         
-        /* Foldable devices - Surface Duo (540px x 720px) */
         @media (min-width: 540px) and (max-width: 720px) and (orientation: portrait) {
           .skills-section { padding: 0 0 40px 0; }
           .skills-container { padding: 0 20px; }
@@ -525,7 +505,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 9px; }
         }
         
-        /* Galaxy Z Fold 5 - Folded (280px) */
         @media (max-width: 280px) {
           .skills-section { padding: 0 0 15px 0; }
           .skills-container { padding: 0 8px; }
@@ -540,7 +519,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 4px; }
         }
         
-        /* Galaxy Z Fold 5 - Unfolded (1768px) */
         @media (min-width: 1768px) and (max-width: 1768px) {
           .skills-section { padding: 80px 0; }
           .skills-container { padding: 0 40px; }
@@ -554,7 +532,6 @@ const Skills = ({ theme }) => {
           .skill-label { font-size: 11px; }
         }
         
-        /* Landscape orientation adjustments */
         @media (orientation: landscape) and (max-height: 500px) {
           .skills-section { padding: 20px 0; }
           .text-shadows { font-size: calc(1.1rem + 1vw); }

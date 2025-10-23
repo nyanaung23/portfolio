@@ -10,8 +10,11 @@ const Navbar = ({ theme, toggleTheme }) => {
     }
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToIntro = () => {
+    const element = document.getElementById('intro');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -32,7 +35,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         <motion.div
           className="nav-logo"
           whileHover={{ scale: 1.05 }}
-          onClick={scrollToTop}
+          onClick={scrollToIntro}
         >
           Nyan Aung
         </motion.div>

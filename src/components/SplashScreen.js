@@ -100,8 +100,6 @@ const SplashScreen = () => {
                 0 0 12px rgba(124, 58, 237, 0.4),
                 inset 0 1px 2px rgba(255, 255, 255, 0.2);
             }
-
-
             
             .dot {
               margin-left: 5px;

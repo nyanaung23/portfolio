@@ -78,35 +78,38 @@ const About = ({ theme }) => {
         '--skill-shadow': theme === 'dark' ? '0 6px 16px rgba(0,0,0,0.35)' : '0 6px 12px rgba(0,0,0,0.08)',
         '--skill-hover-bg': theme === 'dark' ? 'rgba(227, 229, 230, 0.1)' : 'rgba(0, 0, 0, 0.1)',
         '--skill-hover-shadow': theme === 'dark' ? '0 10px 24px rgba(0,0,0,0.45), 0 0 12px rgba(227,229,230,0.25) inset' : '0 10px 20px rgba(0,0,0,0.15)',
-        '--skill-tooltip-bg': theme === 'dark' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.8)'
+        '--skill-tooltip-bg': theme === 'dark' ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.8)',
+        '--polaroid-border': theme === 'dark' ? '#e3e5e6' : 'black',
+        '--polaroid-bg': theme === 'dark' ? '#0f3a2a' : '#fff',
+        '--polaroid-image-bg': theme === 'dark' ? '#052015' : '#eee'
       }}
     >
       <motion.div 
         className="about-container"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
         viewport={{ once: false, margin: "-200px" }}
       >
         <motion.div
           className={`about-content ${isExpanded ? 'bio-expanded' : ''}`}
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           viewport={{ once: false, margin: "-150px" }}
         >
           <motion.div
             className="about-header"
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+            transition={{ duration: 0.2, delay: 0.05, ease: "easeOut" }}
             viewport={{ once: false }}
           >
           <motion.h2
             className="about-title"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.15, delay: 0.1, ease: "easeOut" }}
               viewport={{ once: false }}
             >
               About Me
@@ -118,15 +121,45 @@ const About = ({ theme }) => {
               className="about-image"
               initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.2, delay: 0.15, ease: "easeOut" }}
               viewport={{ once: false }}
             >
+              <motion.div
+                className="education-section"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.25, ease: "easeOut" }}
+                viewport={{ once: false }}
+              >
+                <div className="education-card">
+                  <h3 className="education-title">Education</h3>
+                  <div className="education-content">
+                    <div className="education-entry">
+                      <div className="university-info">
+                        <h4 className="university-name">University of California San Diego (UCSD)</h4>
+                      </div>
+                      <div className="graduation-info">
+                        <p className="graduation-date">Dec 2026</p>
+                      </div>
+                    </div>
+                    <div className="degree-info">
+                      <div>
+                        <p className="degree">B.S. Computer Engineering</p>
+                        <p className="specialization">B.S. Cognitive Science Specialization in Machine Learning and Neural Computation</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+              
               <div className="image-container">
-                <img 
-                  src="/Nyan.jpeg" 
-                  alt="Nyan Aung" 
-                  className="profile-image"
-                />
+                <div className="polaroid-card">
+                  <img 
+                    src="/Nyan.jpeg" 
+                    alt="Nyan Aung" 
+                    className="profile-image"
+                  />
+                </div>
               </div>
             </motion.div>
             
@@ -134,7 +167,7 @@ const About = ({ theme }) => {
               className="about-text"
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.2, delay: 0.2, ease: "easeOut" }}
               viewport={{ once: false }}
             >
               <div className="bio-content">

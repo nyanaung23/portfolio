@@ -1,4 +1,5 @@
 .about-section {
+  height: auto;
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
@@ -7,8 +8,6 @@
   background: var(--about-bg);
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 
 .about-container {
@@ -64,7 +63,6 @@
   text-align: center;
   margin: 0;
   color: var(--about-title-color);
-  animation: shadows 1.2s ease-in infinite;
   letter-spacing: 0.2rem;
 }
 
@@ -434,79 +432,202 @@
 
 .about-image {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 50px;
 }
 
 .image-container {
-  width: 100%;
-  max-width: 450px;
-  aspect-ratio: 1;
-  border-radius: 30px;
-  overflow: hidden;
+  width: 50%;
+  max-width: 280px;
+  transition: 0.25s ease;
   position: relative;
-  box-shadow: var(--image-shadow);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: var(--image-bg);
-}
-
-.image-container::after {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  background: conic-gradient(from 0deg, var(--image-border-color), transparent, var(--image-border-color), transparent, var(--image-border-color));
-  border-radius: 40px;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  animation: rotate 8s linear infinite;
-}
-
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.image-container::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: var(--image-border-gradient);
-  border-radius: 32px;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  transform: rotate(-2deg);
 }
 
 .image-container:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: var(--image-hover-shadow);
+  transform: rotate(0deg);
 }
 
-.image-container:hover::before {
-  opacity: 0.3;
+.image-container:hover .polaroid-card::before {
+  transform: translateY(0%) rotate(0deg);
+  opacity: 0;
 }
 
-.image-container:hover::after {
-  opacity: 0.6;
+.image-container:hover .polaroid-card::after {
+  transform: translateY(0%) rotate(0deg);
+  opacity: 0;
+}
+
+.polaroid-card {
+  aspect-ratio: 3 / 2;
+  border: 4px solid var(--polaroid-border, black);
+  background-color: var(--polaroid-bg, #fff);
+  position: relative;
+  transition: 0.15s ease;
+  cursor: pointer;
+  padding: 5% 5% 15% 5%;
+}
+
+.polaroid-card::before,
+.polaroid-card::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: 4px solid var(--polaroid-border, black);
+  background-color: var(--polaroid-bg, #fff);
+  transform-origin: center center;
+  z-index: -1;
+  transition: 0.15s ease;
+  top: 0;
+  left: 0;
+}
+
+.polaroid-card::before {
+  transform: translateY(-2%) rotate(-6deg);
+}
+
+.polaroid-card::after {
+  transform: translateY(2%) rotate(6deg);
 }
 
 .profile-image {
   width: 100%;
-  height: 100%;
+  border: 4px solid var(--polaroid-border, black);
+  background-color: var(--polaroid-image-bg, #eee);
+  aspect-ratio: 1 / 1;
+  position: relative;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.4s ease;
 }
 
-.image-container:hover .profile-image {
-  transform: scale(1.05);
+.education-section {
+  width: 100%;
+  max-width: 500px;
+  margin-top: -50px;
+}
+
+.education-card {
+  background: var(--bio-card-bg);
+  border: 1px solid var(--bio-card-border);
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 
+    0 4px 12px var(--bio-card-shadow-1),
+    0 2px 6px var(--bio-card-shadow-2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.education-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 20px var(--bio-card-shadow-1),
+    0 4px 10px var(--bio-card-shadow-2);
+}
+
+.education-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--bio-text-color);
+  margin-bottom: 12px;
+  text-align: left;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.education-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--bio-text-color);
+  opacity: 0.3;
+}
+
+.education-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.education-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.university-info {
+  flex: 1;
+  text-align: left;
+}
+
+.university-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bio-text-color);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.university-location {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--bio-text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+.degree-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.degree {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bio-text-color);
+  margin: 0;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.specialization {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--bio-text-color);
+  margin: 0;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.graduation-info {
+  text-align: right;
+}
+
+.graduation-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bio-text-secondary);
+  margin: 0;
+  line-height: 1.4;
+  font-style: italic;
 }
 
 .skills-wrapper {
@@ -591,22 +712,14 @@
 }
 
 @media (max-width: 767px) {
-  .about-content.bio-expanded .about-header {
-    transform: translate3d(0, -60px, 0);
-    transition: transform 0.15s ease-out;
-    will-change: transform;
+  .about-section {
+    height: auto;
+    min-height: 100vh;
+    padding: 60px 0 40px 0;
   }
   
-  .about-content.bio-expanded .about-image {
-    transform: translate3d(0, -50px, 0) !important;
-    transition: transform 0.15s ease-out !important;
-    will-change: transform;
-  }
-  
-  .about-content.bio-expanded .image-container {
-    transform: translate3d(0, -50px, 0) !important;
-    transition: transform 0.15s ease-out !important;
-    will-change: transform;
+  .about-content.bio-expanded {
+    padding-bottom: 40px;
   }
   
   .about-content.bio-expanded .about-layout {
@@ -614,16 +727,9 @@
     transition: gap 0.15s ease-out;
   }
   
-  .about-content.bio-expanded .about-text {
-    transform: translate3d(0, -140px, 0);
-    transition: transform 0.15s ease-out;
-    will-change: transform;
-  }
-  
   .about-content.bio-expanded .bio-card.expanded {
-    transform: translate3d(0, -120px, 0);
-    transition: transform 0.15s ease-out, width 0.15s ease-out, height 0.15s ease-out;
-    will-change: transform;
+    margin-bottom: 30px;
+    transition: width 0.15s ease-out, height 0.15s ease-out, margin-bottom 0.15s ease-out;
   }
   
   .bio-card .border {
@@ -648,9 +754,56 @@
   .skills-category-title {
     font-size: 24px;
   }
+  
+  .about-image {
+    gap: 40px;
+  }
+  
+  .image-container {
+    width: 60%;
+    max-width: 300px;
+  }
+  
+  .education-section {
+    max-width: 400px;
+    margin-top: 0;
+  }
+  
+  .education-card {
+    padding: 20px 24px;
+    border-radius: 16px;
+  }
+  
+  .education-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .university-name {
+    font-size: 14px;
+  }
+  
+  .university-location {
+    font-size: 12px;
+  }
+  
+  .degree {
+    font-size: 12px;
+  }
+  
+  .specialization {
+    font-size: 11px;
+  }
+  
+  .graduation-date {
+    font-size: 12px;
+  }
+  
+  .skills-wrapper {
+    margin-top: 80px;
+  }
 }
 
-/* Ultra-wide monitors (3440px+) */
 @media (min-width: 3440px) {
   .about-section {
     padding: 120px 0 0px 0;
@@ -681,7 +834,42 @@
   }
   
   .image-container {
-    max-width: 550px;
+    max-width: 350px;
+  }
+  
+  .education-section {
+    max-width: 450px;
+  }
+  
+  .education-card {
+    padding: 28px 36px;
+    border-radius: 60px;
+    min-height: 140px;
+  }
+  
+  .education-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .university-name {
+    font-size: 18px;
+  }
+  
+  .university-location {
+    font-size: 15px;
+  }
+  
+  .degree {
+    font-size: 15px;
+  }
+  
+  .specialization {
+    font-size: 14px;
+  }
+  
+  .graduation-date {
+    font-size: 14px;
   }
   
   .bio-initial-text {
@@ -698,7 +886,6 @@
   }
 }
 
-/* Large 4K monitors (2560px - 3439px) */
 @media (min-width: 2560px) and (max-width: 3439px) {
   .about-section {
     padding: 100px 0 0px 0;
@@ -746,7 +933,6 @@
   }
 }
 
-/* Standard large monitors (1920px - 2559px) */
 @media (min-width: 1920px) and (max-width: 2559px) {
   .about-section {
     padding: 80px 0 0px 0;
@@ -794,7 +980,6 @@
   }
 }
 
-/* Standard desktop (1440px - 1919px) */
 @media (min-width: 1440px) and (max-width: 1919px) {
   .about-section {
     padding: 80px 0 0px 0;
@@ -842,7 +1027,6 @@
   }
 }
 
-/* Small desktop/large laptop (1280px - 1439px) */
 @media (min-width: 1280px) and (max-width: 1439px) {
   .about-section {
     padding: 70px 0 0px 0;
@@ -890,7 +1074,6 @@
   }
 }
 
-/* Laptop (1024px - 1279px) */
 @media (min-width: 1024px) and (max-width: 1279px) {
   .about-section {
     padding: 60px 0 0px 0;
@@ -938,7 +1121,6 @@
   }
 }
 
-/* iPad Pro (1024px) */
 @media (min-width: 1024px) and (max-width: 1024px) and (orientation: landscape) {
   .about-section {
     padding: 50px 0 0px 0;
@@ -986,7 +1168,6 @@
   }
 }
 
-/* iPad Air (820px) */
 @media (min-width: 820px) and (max-width: 1023px) {
   .about-section {
     padding: 50px 0 0px 0;
@@ -1034,7 +1215,6 @@
   }
 }
 
-/* iPad Mini (768px) */
 @media (min-width: 768px) and (max-width: 819px) {
   .about-section {
     padding: 45px 0 0px 0;
@@ -1082,7 +1262,6 @@
   }
 }
 
-/* Large phones/Small tablets (481px - 767px) */
 @media (min-width: 481px) and (max-width: 767px) {
   .about-section {
     padding: 40px 0 0px 0;
@@ -1135,7 +1314,6 @@
   }
 }
 
-/* iPhone 14 Pro Max, Samsung Galaxy S20 Ultra (428px) */
 @media (min-width: 428px) and (max-width: 480px) {
   .about-section {
     padding: 35px 0 0px 0;
@@ -1186,12 +1364,59 @@
   .expanded-bio {
     padding: 20px;
   }
+  
+  .about-image {
+    gap: 35px;
+  }
+  
+  .image-container {
+    width: 50%;
+    max-width: 220px;
+  }
+  
+  .education-section {
+    max-width: 350px;
+    margin-top: 0;
+  }
+  
+  .education-card {
+    padding: 18px 20px;
+    border-radius: 16px;
+  }
+  
+  .education-title {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .university-name {
+    font-size: 13px;
+  }
+  
+  .university-location {
+    font-size: 11px;
+  }
+  
+  .degree {
+    font-size: 11px;
+  }
+  
+  .specialization {
+    font-size: 10px;
+  }
+  
+  .graduation-date {
+    font-size: 11px;
+  }
+  
+  .skills-wrapper {
+    margin-top: 70px;
+  }
 }
 
-/* iPhone 12 Pro, iPhone XR (390px) */
 @media (min-width: 390px) and (max-width: 427px) {
   .about-section {
-    padding: 30px 0 0px 0;
+    padding: 50px 0 0px 0;
   }
   
   .about-container {
@@ -1239,12 +1464,59 @@
   .expanded-bio {
     padding: 18px;
   }
+  
+  .about-image {
+    gap: 30px;
+  }
+  
+  .image-container {
+    width: 45%;
+    max-width: 200px;
+  }
+  
+  .education-section {
+    max-width: 320px;
+    margin-top: 0;
+  }
+  
+  .education-card {
+    padding: 16px 18px;
+    border-radius: 16px;
+  }
+  
+  .education-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .university-name {
+    font-size: 12px;
+  }
+  
+  .university-location {
+    font-size: 10px;
+  }
+  
+  .degree {
+    font-size: 10px;
+  }
+  
+  .specialization {
+    font-size: 9px;
+  }
+  
+  .graduation-date {
+    font-size: 10px;
+  }
+  
+  .skills-wrapper {
+    margin-top: 100px;
+  }
 }
 
-/* iPhone SE, Samsung Galaxy A51/71 (375px) */
 @media (min-width: 375px) and (max-width: 389px) {
   .about-section {
-    padding: 25px 0 0px 0;
+    padding: 40px 0 0px 0;
   }
   
   .about-container {
@@ -1292,9 +1564,12 @@
   .expanded-bio {
     padding: 16px;
   }
+  
+  .skills-wrapper {
+    margin-top: 100px;
+  }
 }
 
-/* Samsung Galaxy S8+ (360px) */
 @media (min-width: 360px) and (max-width: 374px) {
   .about-section {
     padding: 25px 0 0px 0;
@@ -1347,7 +1622,6 @@
   }
 }
 
-/* Small phones (320px - 359px) */
 @media (min-width: 320px) and (max-width: 359px) {
   .about-section {
     padding: 20px 0 0px 0;
@@ -1400,7 +1674,6 @@
   }
 }
 
-/* Foldable devices - Surface Duo (540px x 720px) */
 @media (min-width: 540px) and (max-width: 720px) and (orientation: portrait) {
   .about-section {
     padding: 40px 0 0px 0;
@@ -1449,7 +1722,6 @@
   }
 }
 
-/* Galaxy Z Fold 5 - Folded (280px) */
 @media (max-width: 280px) {
   .about-section {
     padding: 15px 0;
@@ -1502,7 +1774,6 @@
   }
 }
 
-/* Galaxy Z Fold 5 - Unfolded (1768px) */
 @media (min-width: 1768px) and (max-width: 1768px) {
   .about-section {
     padding: 100px 0 0px 0;
@@ -1550,7 +1821,6 @@
   }
 }
 
-/* Landscape orientation adjustments */
 @media (orientation: landscape) and (max-height: 500px) {
   .about-section {
     padding: 20px 0 0px 0;

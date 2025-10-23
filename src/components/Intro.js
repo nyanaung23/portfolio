@@ -13,6 +13,16 @@ const Intro = ({ theme }) => {
   const resizeTimeoutRef = useRef(null);
   const dispersalBoostRef = useRef(false);
   const dispersalTimeoutRef = useRef(null);
+  const lastFrameTimeRef = useRef(0);
+
+  const getParticleCount = useCallback(() => {
+    if (window.innerWidth <= 375) return 30;
+    if (window.innerWidth <= 480) return 45;
+    if (window.innerWidth <= 768) return 60;
+    if (window.innerWidth <= 1024) return 75;
+    if (window.innerWidth <= 1366) return 90;
+    return 105;
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -46,25 +56,12 @@ const Intro = ({ theme }) => {
     
     const adjustParticleCount = () => {
       const currentParticleCount = particlesRef.current.length;
-      let targetParticleCount;
-      
-      if (window.innerWidth <= 375) {
-        targetParticleCount = 30;
-      } else if (window.innerWidth <= 480) {
-        targetParticleCount = 45;
-      } else if (window.innerWidth <= 768) {
-        targetParticleCount = 60;
-      } else if (window.innerWidth <= 1024) {
-        targetParticleCount = 75;
-      } else if (window.innerWidth <= 1366) {
-        targetParticleCount = 90;
-      } else {
-        targetParticleCount = 105;
-      }
+      const targetParticleCount = getParticleCount();
       
       if (targetParticleCount > currentParticleCount) {
+        const newParticles = [];
         for (let i = currentParticleCount; i < targetParticleCount; i++) {
-          particlesRef.current.push({
+          newParticles.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             vx: (Math.random() - 0.5) * 0.6,
@@ -75,6 +72,7 @@ const Intro = ({ theme }) => {
             pulseSpeed: Math.random() * 0.02 + 0.01
           });
         }
+        particlesRef.current.push(...newParticles);
       }
       else if (targetParticleCount < currentParticleCount) {
         particlesRef.current = particlesRef.current.slice(0, targetParticleCount);
@@ -86,24 +84,11 @@ const Intro = ({ theme }) => {
 
     const initParticles = () => {
       particlesRef.current = [];
+      const particleCount = getParticleCount();
       
-      let particleCount;
-      if (window.innerWidth <= 375) {
-        particleCount = 30;
-      } else if (window.innerWidth <= 480) {
-        particleCount = 45;
-      } else if (window.innerWidth <= 768) {
-        particleCount = 60;
-      } else if (window.innerWidth <= 1024) {
-        particleCount = 75;
-      } else if (window.innerWidth <= 1366) {
-        particleCount = 90;
-      } else {
-        particleCount = 105;
-      }
-      
+      const particles = [];
       for (let i = 0; i < particleCount; i++) {
-        particlesRef.current.push({
+        particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           vx: (Math.random() - 0.5) * 0.6,
@@ -114,6 +99,7 @@ const Intro = ({ theme }) => {
           pulseSpeed: Math.random() * 0.02 + 0.01
         });
       }
+      particlesRef.current = particles;
     };
 
     initParticles();
@@ -125,14 +111,28 @@ const Intro = ({ theme }) => {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    const animate = () => {
+    const animate = (currentTime) => {
+      if (currentTime - lastFrameTimeRef.current < 16.67) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTimeRef.current = currentTime;
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      particlesRef.current.forEach((particle, index) => {
+      const particles = particlesRef.current;
+      const mouseX = mouseRef.current.x;
+      const mouseY = mouseRef.current.y;
+      const isResizing = isResizingRef.current;
+      const dispersalBoost = dispersalBoostRef.current;
+      
+      for (let index = 0; index < particles.length; index++) {
+        const particle = particles[index];
+        
         let speedMultiplier = 1.0;
-        if (isResizingRef.current) {
+        if (isResizing) {
           speedMultiplier = 3.0;
-        } else if (dispersalBoostRef.current) {
+        } else if (dispersalBoost) {
           speedMultiplier = 4.0;
         }
         
@@ -148,16 +148,16 @@ const Intro = ({ theme }) => {
           particle.y = Math.max(0, Math.min(canvas.height, particle.y));
         }
         
-        const dx = mouseRef.current.x - particle.x;
-        const dy = mouseRef.current.y - particle.y;
+        const dx = mouseX - particle.x;
+        const dy = mouseY - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
         if (distance < 150) {
           const force = (150 - distance) / 150;
           let attractionForce = 0.02;
-          if (isResizingRef.current) {
+          if (isResizing) {
             attractionForce = 0.06;
-          } else if (dispersalBoostRef.current) {
+          } else if (dispersalBoost) {
             attractionForce = 0.08;
           }
           particle.x += dx * force * attractionForce;
@@ -166,13 +166,14 @@ const Intro = ({ theme }) => {
           particle.size = particle.originalSize + force * 1;
           particle.opacity = Math.min(0.8, particle.opacity + force * 0.1);
         } else {
-          particle.size = particle.originalSize + Math.sin(Date.now() * particle.pulseSpeed) * 0.5;
+          particle.size = particle.originalSize + Math.sin(currentTime * particle.pulseSpeed) * 0.5;
           particle.opacity = Math.random() * 0.6 + 0.2;
         }
         
-        if (dispersalBoostRef.current) {
-          particlesRef.current.forEach((otherParticle, otherIndex) => {
+        if (dispersalBoost) {
+          for (let otherIndex = 0; otherIndex < particles.length; otherIndex++) {
             if (index !== otherIndex) {
+              const otherParticle = particles[otherIndex];
               const dx = particle.x - otherParticle.x;
               const dy = particle.y - otherParticle.y;
               const distance = Math.sqrt(dx * dx + dy * dy);
@@ -186,7 +187,7 @@ const Intro = ({ theme }) => {
                 particle.y += pushY;
               }
             }
-          });
+          }
         }
         
         ctx.beginPath();
@@ -199,36 +200,36 @@ const Intro = ({ theme }) => {
         ctx.fill();
         
         ctx.shadowBlur = 0;
-      });
+      }
       
       const connections = [];
-      
-      particlesRef.current.forEach((particle, i) => {
-        particlesRef.current.forEach((otherParticle, j) => {
-          if (i < j) {
-            const dx = particle.x - otherParticle.x;
-            const dy = particle.y - otherParticle.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            if (distance < 120) {
-              connections.push({
-                particle1: particle,
-                particle2: otherParticle,
-                distance: distance,
-                opacity: Math.max(0.1, (120 - distance) / 120 * 0.5)
-              });
-            }
+      for (let i = 0; i < particles.length; i++) {
+        const particle = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const otherParticle = particles[j];
+          const dx = particle.x - otherParticle.x;
+          const dy = particle.y - otherParticle.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 120) {
+            connections.push({
+              particle1: particle,
+              particle2: otherParticle,
+              distance: distance,
+              opacity: Math.max(0.1, (120 - distance) / 120 * 0.5)
+            });
           }
-        });
-      });
+        }
+      }
       
-      connections.forEach(connection => {
+      for (let i = 0; i < connections.length; i++) {
+        const connection = connections[i];
         const { particle1, particle2, opacity } = connection;
         
-        const mouseDx1 = particle1.x - mouseRef.current.x;
-        const mouseDy1 = particle1.y - mouseRef.current.y;
-        const mouseDx2 = particle2.x - mouseRef.current.x;
-        const mouseDy2 = particle2.y - mouseRef.current.y;
+        const mouseDx1 = particle1.x - mouseX;
+        const mouseDy1 = particle1.y - mouseY;
+        const mouseDx2 = particle2.x - mouseX;
+        const mouseDy2 = particle2.y - mouseY;
         const mouseDistance1 = Math.sqrt(mouseDx1 * mouseDx1 + mouseDy1 * mouseDy1);
         const mouseDistance2 = Math.sqrt(mouseDx2 * mouseDx2 + mouseDy2 * mouseDy2);
         
@@ -256,15 +257,16 @@ const Intro = ({ theme }) => {
         ctx.stroke();
         
         ctx.shadowBlur = 0;
-      });
+      }
       
       const cursorParticle = {
-        x: mouseRef.current.x,
-        y: mouseRef.current.y,
+        x: mouseX,
+        y: mouseY,
         size: 8
       };
       
-      particlesRef.current.forEach(particle => {
+      for (let i = 0; i < particles.length; i++) {
+        const particle = particles[i];
         const dx = cursorParticle.x - particle.x;
         const dy = cursorParticle.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -272,9 +274,9 @@ const Intro = ({ theme }) => {
         if (distance < 150) {
           const baseOpacity = (150 - distance) / 150 * 0.6;
           let opacity = baseOpacity;
-          if (isResizingRef.current) {
+          if (isResizing) {
             opacity = Math.min(1.0, baseOpacity * 1.5);
-          } else if (dispersalBoostRef.current) {
+          } else if (dispersalBoost) {
             opacity = Math.min(0.9, baseOpacity * 1.3);
           }
           
@@ -282,18 +284,18 @@ const Intro = ({ theme }) => {
           ctx.moveTo(cursorParticle.x, cursorParticle.y);
           ctx.lineTo(particle.x, particle.y);
           
-          const glowBlur = isResizingRef.current ? 10 : (dispersalBoostRef.current ? 8 : 6);
+          const glowBlur = isResizing ? 10 : (dispersalBoost ? 8 : 6);
           ctx.shadowBlur = glowBlur;
           ctx.shadowColor = theme === 'dark' ? 'rgba(227, 229, 230, 0.6)' : 'rgba(51, 51, 51, 0.4)';
           
           ctx.strokeStyle = theme === 'dark' ? `rgba(227, 229, 230, ${opacity})` : `rgba(51, 51, 51, ${opacity})`;
-          const lineWidth = isResizingRef.current ? 3 : (dispersalBoostRef.current ? 2.5 : 2);
+          const lineWidth = isResizing ? 3 : (dispersalBoost ? 2.5 : 2);
           ctx.lineWidth = lineWidth;
           ctx.stroke();
           
           ctx.shadowBlur = 0;
         }
-      });
+      }
       
       ctx.beginPath();
       ctx.arc(cursorParticle.x, cursorParticle.y, cursorParticle.size, 0, Math.PI * 2);
@@ -306,7 +308,7 @@ const Intro = ({ theme }) => {
       animationRef.current = requestAnimationFrame(animate);
     };
     
-    animate();
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
@@ -321,7 +323,7 @@ const Intro = ({ theme }) => {
         clearTimeout(dispersalTimeoutRef.current);
       }
     };
-  }, [theme]);
+  }, [theme, getParticleCount]);
 
   const scrollToAbout = useCallback(() => {
     const element = document.getElementById('about');
@@ -346,7 +348,7 @@ const Intro = ({ theme }) => {
   }, []);
 
   return (
-    <section className="intro-section">
+    <section id="intro" className="intro-section">
       <canvas
         ref={canvasRef}
         className="particles-canvas"

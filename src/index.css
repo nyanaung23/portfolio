@@ -15,11 +15,8 @@ html, body, #root {
   overflow-x: hidden;
 }
 
-/* Enable snap scrolling between full-screen sections */
 body {
-  scroll-snap-type: y mandatory;
   overscroll-behavior-y: contain;
-  scroll-padding-top: 80px; /* accounts for fixed navbar height */
 }
 
 :root {
@@ -106,9 +103,7 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
-/* ===== COMPREHENSIVE RESPONSIVE DESIGN ===== */
 
-/* Ultra-wide monitors (3440px+) */
 @media (min-width: 3440px) {
   .container {
     max-width: 1600px;
@@ -120,7 +115,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Large 4K monitors (2560px - 3439px) */
 @media (min-width: 2560px) and (max-width: 3439px) {
   .container {
     max-width: 1400px;
@@ -132,7 +126,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Standard large monitors (1920px - 2559px) */
 @media (min-width: 1920px) and (max-width: 2559px) {
   .container {
     max-width: 1200px;
@@ -144,7 +137,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Standard desktop (1440px - 1919px) */
 @media (min-width: 1440px) and (max-width: 1919px) {
   .container {
     max-width: 1200px;
@@ -156,7 +148,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Small desktop/large laptop (1280px - 1439px) */
 @media (min-width: 1280px) and (max-width: 1439px) {
   .container {
     max-width: 1100px;
@@ -168,7 +159,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Laptop (1024px - 1279px) */
 @media (min-width: 1024px) and (max-width: 1279px) {
   .container {
     max-width: 1000px;
@@ -180,7 +170,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* iPad Pro (1024px) */
 @media (min-width: 1024px) and (max-width: 1024px) and (orientation: landscape) {
   .container {
     max-width: 900px;
@@ -192,7 +181,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* iPad Air (820px) */
 @media (min-width: 820px) and (max-width: 1023px) {
   .container {
     max-width: 800px;
@@ -204,7 +192,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* iPad Mini (768px) */
 @media (min-width: 768px) and (max-width: 819px) {
   .container {
     max-width: 700px;
@@ -216,7 +203,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Large phones/Small tablets (481px - 767px) */
 @media (min-width: 481px) and (max-width: 767px) {
   .container {
     padding: 0 20px;
@@ -228,7 +214,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* iPhone 14 Pro Max, Samsung Galaxy S20 Ultra (428px) */
 @media (min-width: 428px) and (max-width: 480px) {
   .container {
     padding: 0 18px;
@@ -240,7 +225,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* iPhone 12 Pro, iPhone XR (390px) */
 @media (min-width: 390px) and (max-width: 427px) {
   .container {
     padding: 0 16px;
@@ -252,7 +236,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* iPhone SE, Samsung Galaxy A51/71 (375px) */
 @media (min-width: 375px) and (max-width: 389px) {
   .container {
     padding: 0 15px;
@@ -264,7 +247,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Samsung Galaxy S8+ (360px) */
 @media (min-width: 360px) and (max-width: 374px) {
   .container {
     padding: 0 14px;
@@ -276,7 +258,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Small phones (320px - 359px) */
 @media (min-width: 320px) and (max-width: 359px) {
   .container {
     padding: 0 12px;
@@ -288,7 +269,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Foldable devices - Surface Duo (540px x 720px) */
 @media (min-width: 540px) and (max-width: 720px) and (orientation: portrait) {
   .container {
     max-width: 500px;
@@ -300,7 +280,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Galaxy Z Fold 5 - Folded (280px) */
 @media (max-width: 280px) {
   .container {
     padding: 0 8px;
@@ -312,7 +291,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Galaxy Z Fold 5 - Unfolded (1768px) */
 @media (min-width: 1768px) and (max-width: 1768px) {
   .container {
     max-width: 1600px;
@@ -324,7 +302,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Landscape orientation adjustments */
 @media (orientation: landscape) and (max-height: 500px) {
   .section {
     min-height: 100vh;
@@ -332,7 +309,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* High DPI displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .intro-name {
     -webkit-font-smoothing: antialiased;
