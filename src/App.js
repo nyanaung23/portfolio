@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import Contact from './components/Contact';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +48,7 @@ function App() {
             <About theme={theme} />
             <Skills theme={theme} />
             <Projects theme={theme} />
+            <Contact theme={theme} />
           </motion.div>
         )}
       </AnimatePresence>

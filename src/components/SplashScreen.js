@@ -39,7 +39,7 @@ const SplashScreen = () => {
           left: 0;
           width: 100vw;
           height: 100vh;
-          background: #000000;
+          background: linear-gradient(135deg, #042a1c 0%, #042a1c 100%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -61,29 +61,29 @@ const SplashScreen = () => {
               align-items: center;
               gap: 40px;
               padding: 20px;
-              font-family: system-ui, sans-serif;
+              font-family: 'Chiron Sung HK', serif;
             }
             
             .loading-title {
-              color: white;
+              color: #e3e5e6;
               font-size: 42px;
               font-weight: 700;
               letter-spacing: 3px;
               text-align: center;
               animation: titleGlow 2s ease-in-out infinite;
-              text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+              text-shadow: 0 0 20px rgba(13, 79, 60, 0.5);
             }
             
             .loader-track {
               position: relative;
               width: 800px;
               height: 50px;
-              background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+              background: linear-gradient(135deg, #0a2e1f, #1a4a35);
               border-radius: 25px;
               overflow: hidden;
               box-shadow:
                 inset 0 2px 4px rgba(0, 0, 0, 0.6),
-                0 1px 3px rgba(255, 255, 255, 0.1);
+                0 1px 3px rgba(227, 229, 230, 0.1);
             }
 
             .liquid-fill {
@@ -91,14 +91,14 @@ const SplashScreen = () => {
               top: 2px;
               left: 2px;
               height: calc(100% - 4px);
-              background: linear-gradient(90deg, #4f46e5, #7c3aed, #ec4899, #f59e0b);
+              background: linear-gradient(90deg, #0d4f3c, #1a5f4a, #2d6b58, #407766);
               border-radius: 23px;
               animation:
                 fillProgress 4s ease-out forwards,
                 colorShift 3s linear infinite;
               box-shadow:
-                0 0 12px rgba(124, 58, 237, 0.4),
-                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+                0 0 12px rgba(26, 95, 74, 0.4),
+                inset 0 1px 2px rgba(227, 229, 230, 0.2);
             }
             
             .dot {
@@ -170,11 +170,11 @@ const SplashScreen = () => {
               0%,
               100% {
                 opacity: 0.8;
-                text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+                text-shadow: 0 0 20px rgba(13, 79, 60, 0.5);
               }
               50% {
                 opacity: 1;
-                text-shadow: 0 0 30px rgba(139, 92, 246, 0.8);
+                text-shadow: 0 0 30px rgba(13, 79, 60, 0.8);
               }
             }
 

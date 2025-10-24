@@ -76,11 +76,34 @@ const Projects = ({ theme }) => {
   useEffect(() => {
     const wrapper = wrapperRef.current;
     const allWindows = allWindowsRef.current;
+    let isInHorizontalMode = false;
+    let horizontalModeTimeout = null;
 
     const handleWheel = (e) => {
       if (e.deltaX !== 0) return;
-      e.preventDefault();
-      wrapper.scrollLeft += 10 * e.deltaY;
+      
+      const isAtLeftEdge = wrapper.scrollLeft <= 10;
+      const isAtRightEdge = wrapper.scrollLeft >= wrapper.scrollWidth - wrapper.clientWidth - 10;
+      
+      if ((isAtLeftEdge && e.deltaY < 0) || (isAtRightEdge && e.deltaY > 0)) {
+        return;
+      }
+      
+      const isInMiddle = !isAtLeftEdge && !isAtRightEdge;
+      
+      if (isInMiddle) {
+        e.preventDefault();
+        wrapper.scrollLeft += 8 * e.deltaY;
+        isInHorizontalMode = true;
+        
+        if (horizontalModeTimeout) {
+          clearTimeout(horizontalModeTimeout);
+        }
+        
+        horizontalModeTimeout = setTimeout(() => {
+          isInHorizontalMode = false;
+        }, 150);
+      }
     };
 
     const calculateParalax = (container, elem) => {
@@ -95,6 +118,12 @@ const Projects = ({ theme }) => {
       for (let i = 0; i < allWindows.length; i++) {
         calculateParalax(e.target, allWindows[i]);
       }
+      
+      const isAtLeftEdge = wrapper.scrollLeft <= 10;
+      const isAtRightEdge = wrapper.scrollLeft >= wrapper.scrollWidth - wrapper.clientWidth - 10;
+      
+      wrapper.classList.toggle('at-left-edge', isAtLeftEdge);
+      wrapper.classList.toggle('at-right-edge', isAtRightEdge);
     };
 
     const handleMouseMove = (e) => {
@@ -114,6 +143,9 @@ const Projects = ({ theme }) => {
       wrapper.removeEventListener('wheel', handleWheel);
       wrapper.removeEventListener('scroll', handleScroll);
       document.documentElement.removeEventListener('mousemove', handleMouseMove);
+      if (horizontalModeTimeout) {
+        clearTimeout(horizontalModeTimeout);
+      }
     };
   }, []);
 
