@@ -87,16 +87,18 @@ const About = ({ theme }) => {
       <motion.div 
         className="about-container"
         initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        viewport={{ once: false, margin: "-200px" }}
+        viewport={{ once: true, margin: "-100px" }}
       >
         <motion.div
           className={`about-content ${isExpanded ? 'bio-expanded' : ''}`}
           initial={{ opacity: 0, y: 80 }}
+          animate={{ opacity: 1, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          viewport={{ once: false, margin: "-150px" }}
+          viewport={{ once: true, margin: "-100px" }}
         >
           <motion.div
             className="about-header"
