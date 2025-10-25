@@ -28,9 +28,10 @@ const Contact = ({ theme }) => {
     setIsSubmitting(true);
     
     try {
-      const serviceId = 'service_portfolio';
-      const templateId = 'template_contact';
-      const publicKey = 'YOUR_PUBLIC_KEY';
+      const serviceId = 'service_6symxpr';
+      const templateId = 'template_e9vuxhd';
+      const publicKey = 'HAtJgeQV-M-CIHpsF';
+      
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,

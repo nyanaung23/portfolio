@@ -439,7 +439,9 @@
 
 @media (max-width: 768px) {
   .contact-section {
-    padding: 80px 0;
+    min-height: auto;
+    padding: 0px 0 60px 0;
+    margin-top: 0px;
   }
   
   .contact-container {
@@ -502,44 +504,292 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 375px) and (max-width: 375px) {
   .contact-section {
-    padding: 60px 0;
+    min-height: auto;
+    padding: 150px 0 60px 0;
+    margin-top: -150px;
   }
   
   .contact-title {
-    font-size: calc(1.2rem + 2.5vw);
+    font-size: calc(1.5rem + 3vw);
   }
   
   .contact-subtitle {
     font-size: 14px;
   }
+  
+  .contacts-section {
+    margin: 15px 0 10px 0;
+  }
 
+  .contact-content {
+    margin-top: 25px;
+  }
   
   .contact-info,
   .contact-form-container {
-    padding: 20px 15px;
+    padding: 30px 20px;
   }
   
-  .info-title,
-  .form-title {
-    font-size: 20px;
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
   
   .info-item {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
+    padding: 12px;
+    gap: 15px;
+  }
+  
+  .info-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
   }
   
   .social-icons {
-    flex-direction: column;
-    gap: 10px;
+    gap: 15px;
   }
   
   .social-link {
-    flex-direction: row;
-    justify-content: center;
-    min-width: auto;
+    padding: 12px;
+    min-width: 70px;
+  }
+  
+  .social-link svg {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 414px) and (max-width: 414px) {
+  .contact-section {
+    min-height: auto;
+    padding: 150px 0 60px 0;
+    margin-top: -150px;
+  }
+  
+  .contact-title {
+    font-size: calc(1.5rem + 3vw);
+  }
+  
+  .contact-subtitle {
+    font-size: 14px;
+  }
+  
+  .contacts-section {
+    margin: 15px 0 10px 0;
+  }
+
+  .contact-content {
+    margin-top: 25px;
+  }
+  
+  .contact-info,
+  .contact-form-container {
+    padding: 30px 20px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .info-item {
+    padding: 12px;
+    gap: 15px;
+  }
+  
+  .info-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .social-icons {
+    gap: 15px;
+  }
+  
+  .social-link {
+    padding: 12px;
+    min-width: 70px;
+  }
+  
+  .social-link svg {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 390px) and (max-width: 390px) {
+  .contact-section {
+    min-height: auto;
+    padding: 150px 0 60px 0;
+    margin-top: -150px;
+  }
+  
+  .contact-title {
+    font-size: calc(1.5rem + 3vw);
+  }
+  
+  .contact-subtitle {
+    font-size: 14px;
+  }
+  
+  .contacts-section {
+    margin: 15px 0 10px 0;
+  }
+
+  .contact-content {
+    margin-top: 25px;
+  }
+  
+  .contact-info,
+  .contact-form-container {
+    padding: 30px 20px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .info-item {
+    padding: 12px;
+    gap: 15px;
+  }
+  
+  .info-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .social-icons {
+    gap: 15px;
+  }
+  
+  .social-link {
+    padding: 12px;
+    min-width: 70px;
+  }
+  
+  .social-link svg {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 430px) and (max-width: 430px) {
+  .contact-section {
+    min-height: auto;
+    padding: 150px 0 60px 0;
+    margin-top: -150px;
+  }
+  
+  .contact-title {
+    font-size: calc(1.5rem + 3vw);
+  }
+  
+  .contact-subtitle {
+    font-size: 14px;
+  }
+  
+  .contacts-section {
+    margin: 15px 0 10px 0;
+  }
+
+  .contact-content {
+    margin-top: 25px;
+  }
+  
+  .contact-info,
+  .contact-form-container {
+    padding: 30px 20px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .info-item {
+    padding: 12px;
+    gap: 15px;
+  }
+  
+  .info-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .social-icons {
+    gap: 15px;
+  }
+  
+  .social-link {
+    padding: 12px;
+    min-width: 70px;
+  }
+  
+  .social-link svg {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 412px) and (max-width: 412px) {
+  .contact-section {
+    min-height: auto;
+    padding: 150px 0 60px 0;
+    margin-top: -150px;
+  }
+  
+  .contact-title {
+    font-size: calc(1.5rem + 3vw);
+  }
+  
+  .contact-subtitle {
+    font-size: 14px;
+  }
+  
+  .contacts-section {
+    margin: 15px 0 10px 0;
+  }
+
+  .contact-content {
+    margin-top: 25px;
+  }
+  
+  .contact-info,
+  .contact-form-container {
+    padding: 30px 20px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .info-item {
+    padding: 12px;
+    gap: 15px;
+  }
+  
+  .info-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .social-icons {
+    gap: 15px;
+  }
+  
+  .social-link {
+    padding: 12px;
+    min-width: 70px;
+  }
+  
+  .social-link svg {
+    font-size: 20px;
   }
 }

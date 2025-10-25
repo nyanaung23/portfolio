@@ -9,16 +9,22 @@ const Projects = ({ theme }) => {
     '--paralaxY': '50%',
     '--projects-bg': theme === 'dark' ? 'linear-gradient(135deg, #042a1c 0%, #042a1c 100%)' : 'linear-gradient(135deg, #EEEEEE 0%, #EEEEEE 100%)',
     '--projects-title-color': theme === 'dark' ? '#e3e5e6' : '#000000',
+    '--bio-card-bg': '#ffffff',
+    '--github-icon-filter': theme === 'dark' ? 'brightness(0) invert(0)' : 'brightness(0) invert(0)',
+    '--description-opacity': '1',
+    '--title-shadow': 'none',
+    '--selected-text-color': '#000000',
   }), [theme]);
 
   const projects = useMemo(() => [
     { 
       id: 1, 
-      title: 'Help N Seek', 
-      description: 'Exclusive lost and found website for UCSD students with real time messaging and secure authentication, built using RESTful APIs, MongoDB, and JWT for safe peer to peer item recovery. Collaborated with two frontend engineers to integrate backend APIs with React frontend.',
-      techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
-      color: '#4F46E5',
-      githubUrl: 'https://github.com/Angelina-Yee/help-seek'
+      title: 'Portfolio Website', 
+      description: 'Responsive React portfolio with custom animations and particle effects using Canvas API. Features smooth scroll navigation, dynamic theme system with CSS custom properties.',
+      techStack: ['React', 'JavaScript', 'CSS', 'Framer Motion'],
+      color: '#7C3AED',
+      githubUrl: 'https://github.com/nyanaung23/portfolio',
+      image: '/project-images/PorfolioImage.png'
     },
     { 
       id: 2, 
@@ -27,24 +33,27 @@ const Projects = ({ theme }) => {
       techStack: ['React', 'Python', 'Django', 'PostgreSQL', 'Docker'],
       color: '#059669',
       githubUrl: 'https://github.com/nyanaung23/rock-paper-scissors-minus1',
-      liveUrl: 'https://rock-paper-scissors-minus1.vercel.app/'
+      liveUrl: 'https://rock-paper-scissors-minus1.vercel.app/',
+      image: '/project-images/RPS-1Image.png'
     },
     { 
       id: 3, 
+      title: 'Help N Seek', 
+      description: 'Exclusive lost and found website for UCSD students with real time messaging and secure authentication, built using RESTful APIs, MongoDB, and JWT for safe peer to peer item recovery. Collaborated with two frontend engineers to integrate backend APIs with React frontend.',
+      techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
+      color: '#4F46E5',
+      githubUrl: 'https://github.com/Angelina-Yee/help-seek',
+      image: '/project-images/HelpSeekLostPage.png'
+    },
+    { 
+      id: 4, 
       title: 'Forest Flow - Pomodoro Timer', 
       description: 'Responsive Pomodoro timer with custom interval configuration, auto cycle progression, and persistent state management using vanilla JavaScript and LocalStorage.',
       techStack: ['JavaScript', 'HTML', 'CSS'],
       color: '#DC2626',
       githubUrl: 'https://github.com/Angelina-Yee/Forest_Flow',
-      liveUrl: 'https://forestflow.netlify.app/pomodoro'
-    },
-    { 
-      id: 4, 
-      title: 'Portfolio Website', 
-      description: 'Responsive React portfolio with custom animations and particle effects using Canvas API. Features smooth scroll navigation, dynamic theme system with CSS custom properties.',
-      techStack: ['React', 'JavaScript', 'CSS', 'Framer Motion'],
-      color: '#7C3AED',
-      githubUrl: 'https://github.com/nyanaung23/portfolio'
+      liveUrl: 'https://forestflow.netlify.app/pomodoro',
+      image: '/project-images/PomodoroImage.png'
     },
     { 
       id: 5, 
@@ -80,6 +89,14 @@ const Projects = ({ theme }) => {
     let horizontalModeTimeout = null;
 
     const handleWheel = (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const isOverProjects = e.clientX >= rect.left && e.clientX <= rect.right && 
+                            e.clientY >= rect.top && e.clientY <= rect.bottom;
+      
+      if (!isOverProjects) {
+        return;
+      }
+      
       if (e.deltaX !== 0) return;
       
       const isAtLeftEdge = wrapper.scrollLeft <= 10;
@@ -89,9 +106,13 @@ const Projects = ({ theme }) => {
         return;
       }
       
+      if (Math.abs(e.deltaY) < 5) {
+        return;
+      }
+      
       const isInMiddle = !isAtLeftEdge && !isAtRightEdge;
       
-      if (isInMiddle) {
+      if (isInMiddle && Math.abs(e.deltaY) > 5 && isOverProjects) {
         e.preventDefault();
         wrapper.scrollLeft += 8 * e.deltaY;
         isInHorizontalMode = true;
@@ -133,7 +154,7 @@ const Projects = ({ theme }) => {
     };
 
 
-    wrapper.addEventListener('wheel', handleWheel);
+    wrapper.addEventListener('wheel', handleWheel, { passive: false });
     wrapper.addEventListener('scroll', handleScroll);
     document.documentElement.addEventListener('mousemove', handleMouseMove);
 
@@ -188,6 +209,20 @@ const Projects = ({ theme }) => {
                   }
                 }}
               >
+                {project.image && (
+                  <div className="project-image-container">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="project-image"
+                    />
+                  </div>
+                )}
+                {!project.image && project.title === 'Badminton Mesh' && (
+                  <div className="coming-soon-background">
+                    <span className="coming-soon-text">Coming Soon</span>
+                  </div>
+                )}
                 <div className="window-content">
                   <h3 className="project-title">{project.title}</h3>
                   {(project.githubUrl || project.liveUrl) && (
